@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
-import { StyleSheet, Text, View, ScrollView, TextInput, TouchableOpacity, Modal, Alert } from 'react-native';
+import { StyleSheet, Text, View, TextInput, TouchableOpacity, Modal, Alert, FlatList } from 'react-native';
+import Carousel from 'react-native-snap-carousel';
 
 export default function App() {
   const [vehicles, setVehicles] = useState([]);
@@ -43,7 +44,7 @@ export default function App() {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
-          "Authorization": `Bearer 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`,
+          "Authorization": `Bearer `,
         },
         body: JSON.stringify({
           model: "gpt-3.5-turbo",
@@ -69,6 +70,23 @@ export default function App() {
     }
   };
 
+  const renderItem = ({ item }) => {
+    return (
+      <View style={styles.vehicleItem}>
+        <Text style={styles.vehicleText}>{`Marca: ${item.brand}`}</Text>
+        <Text style={styles.vehicleText}>{`Modelo: ${item.model}`}</Text>
+        <Text style={styles.vehicleText}>{`Ano: ${item.year}`}</Text>
+        
+        <TouchableOpacity
+          style={styles.contactButton}
+          onPress={() => handleSeeMore(item)}
+        >
+          <Text style={styles.contactButtonText}>Saber Mais</Text>
+        </TouchableOpacity>
+      </View>
+    );
+  };
+
   return (
     <View style={styles.container}>
       <Text style={styles.header}>E-Carros</Text>
@@ -78,25 +96,6 @@ export default function App() {
       >
         <Text style={styles.addButtonText}>Anunciar Veículo</Text>
       </TouchableOpacity>
-      <ScrollView style={styles.vehicleList}>
-        {vehicles.map((vehicle, index) => (
-          <View key={index} style={styles.vehicleItem}>
-            <Text style={styles.vehicleText}>{`Marca: ${vehicle.brand}`}</Text>
-            <Text style={styles.vehicleText}>{`Modelo: ${vehicle.model}`}</Text>
-            <Text style={styles.vehicleText}>{`Ano: ${vehicle.year}`}</Text>
-            <Text style={styles.vehicleText}>{`Quilometragem: ${vehicle.mileage}`}</Text>
-            <Text style={styles.vehicleText}>{`Preço: ${vehicle.price}`}</Text>
-            <TouchableOpacity
-              style={styles.contactButton}
-              onPress={() => handleSeeMore(vehicle)}
-            >
-              <Text style={styles.contactButtonText}>Saber Mais</Text>
-            </TouchableOpacity>
-          </View>
-        ))}
-      </ScrollView>
-
-      {/* Modal para adicionar novo veículo */}
       <Modal
         animationType="slide"
         transparent={true}
@@ -151,6 +150,12 @@ export default function App() {
           </View>
         </View>
       </Modal>
+      <FlatList
+        style={styles.vehicleList}
+        data={vehicles}
+        renderItem={renderItem}
+        keyExtractor={(item, index) => index.toString()}
+      />
     </View>
   );
 }
@@ -158,7 +163,7 @@ export default function App() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#FFFFFF',
+    backgroundColor: '#4F4F59',
     alignItems: 'center',
     paddingTop: 40,
   },
@@ -187,12 +192,13 @@ const styles = StyleSheet.create({
     backgroundColor: 'white',
     padding: 20,
     marginBottom: 20,
-    borderRadius: 8,
+    borderRadius: 15,
     shadowColor: '#000',
-    shadowOffset: { width: 0, height: 2 },
+    shadowOffset: { width: 50, height: 20 },
     shadowOpacity: 0.1,
-    shadowRadius: 2,
+    shadowRadius: 4,
     elevation: 2,
+    
   },
   vehicleText: {
     fontSize: 16,
@@ -200,7 +206,7 @@ const styles = StyleSheet.create({
   },
   contactButton: {
     backgroundColor: '#4CD964',
-    padding: 10,
+    padding: 5,
     borderRadius: 8,
     marginTop: 10,
   },
@@ -213,7 +219,7 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: 'linear-gradient(to right, rgba(93, 89, 255, 1), rgba(153, 153, 153, 1))',
+    backgroundColor: 'rgba(79, 79, 89, 1)',
   },
   modalContent: {
     backgroundColor: 'white',
@@ -236,11 +242,4 @@ const styles = StyleSheet.create({
   cancelButton: {
     backgroundColor: '#FF5c00',
   },
-  modalTitle: {
-    color: '#FF5C00',
-    fontWeight: 'bold',
-    padding: '15px',
-    Right: '15px',
-  },
-  addButtonText: 
 });
