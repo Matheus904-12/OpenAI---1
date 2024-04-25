@@ -179,7 +179,7 @@ const styles = StyleSheet.create({
     padding: 10,
     borderRadius: 15,
     marginBottom: 20,
-    marginTop: 3,
+    marginTop: 35,
   },
   addButtonText: {
     color: 'white',

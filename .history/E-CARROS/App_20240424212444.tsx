@@ -223,7 +223,7 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: 'rgba(79, 79, 89, 1)',
+    backgroundColor: 'rgba(79, 79, 89, 11)',
   },
   modalContent: {
     backgroundColor: 'white',

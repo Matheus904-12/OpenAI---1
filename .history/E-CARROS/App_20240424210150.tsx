@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
-import { StyleSheet, Text, View, TextInput, TouchableOpacity, Modal, Alert, FlatList } from 'react-native';
+import { StyleSheet, Text, View, TextInput, TouchableOpacity, Modal, Alert, FlatList, Image } from 'react-native';
 import Carousel from 'react-native-snap-carousel';
+import DocumentPicker from '@react-native-community/document-picker';
 
 export default function App() {
   const [vehicles, setVehicles] = useState([]);
@@ -11,6 +12,7 @@ export default function App() {
     year: '',
     mileage: '',
     price: '',
+    image: null, // Adicionado para armazenar a imagem
   });
 
   const handleAddVehicle = () => {
@@ -19,7 +21,8 @@ export default function App() {
       newVehicle.model === '' ||
       newVehicle.year === '' ||
       newVehicle.mileage === '' ||
-      newVehicle.price === ''
+      newVehicle.price === '' ||
+      newVehicle.image === null // Verifica se a imagem foi carregada
     ) {
       Alert.alert('Erro', 'Todos os campos são obrigatórios!', [{ text: 'Ok' }]);
       return;
@@ -32,6 +35,7 @@ export default function App() {
       year: '',
       mileage: '',
       price: '',
+      image: null, // Limpa a imagem após adicionar o veículo
     });
     setModalVisible(false);
 
@@ -73,6 +77,11 @@ export default function App() {
   const renderItem = ({ item }) => {
     return (
       <View style={styles.vehicleItem}>
+        {/* Adiciona a imagem do veículo */}
+        <Image
+          source={item.image} // Define a fonte da imagem
+          style={styles.vehicleImage} // Estilos da imagem
+        />
         <Text style={styles.vehicleText}>{`Marca: ${item.brand}`}</Text>
         <Text style={styles.vehicleText}>{`Modelo: ${item.model}`}</Text>
         <Text style={styles.vehicleText}>{`Ano: ${item.year}`}</Text>
@@ -105,6 +114,13 @@ export default function App() {
         <View style={styles.modalContainer}>
           <View style={styles.modalContent}>
             <Text style={styles.modalTitle}>Novo Veículo</Text>
+            {/* Adiciona um botão para carregar a imagem */}
+            <TouchableOpacity
+              style={styles.imageButton}
+              onPress={() => alert('Adicionar imagem')}
+            >
+              <Text style={styles.imageButtonText}>Carregar Imagem</Text>
+            </TouchableOpacity>
             <TextInput
               style={styles.input}
               placeholder="Marca"
@@ -179,7 +195,7 @@ const styles = StyleSheet.create({
     padding: 10,
     borderRadius: 15,
     marginBottom: 20,
-    marginTop: 3,
+    marginTop: 20,
   },
   addButtonText: {
     color: 'white',
@@ -207,6 +223,11 @@ const styles = StyleSheet.create({
   vehicleText: {
     fontSize: 16,
     marginBottom: 10,
+  },
+  vehicleImage: {
+    width: '100%', // Define a largura da imagem
+    height: 200, // Define a altura da imagem
+    marginBottom: 10, // Define o espaçamento inferior da imagem
   },
   contactButton: {
     backgroundColor: '#4CD964',
@@ -245,5 +266,18 @@ const styles = StyleSheet.create({
   },
   cancelButton: {
     backgroundColor: '#FF5c00',
+  },
+  imageButton: {
+    backgroundColor: '#5D59FF',
+    padding: 10,
+    borderRadius: 15,
+    marginBottom: 20,
+    marginTop: 20,
+    alignItems: 'center',
+  },
+  imageButtonText: {
+    color: 'white',
+    fontWeight: 'bold',
+    textAlign: 'center',
   },
 });

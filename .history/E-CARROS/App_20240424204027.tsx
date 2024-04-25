@@ -121,19 +121,19 @@ export default function App() {
               style={styles.input}
               placeholder="Ano"
               value={newVehicle.year}
-              onChangeText={year => setNewVehicle({...newVehicle, year: year})}
+              onChangeText={text => setNewVehicle({...newVehicle, year: year})}
             />
             <TextInput
               style={styles.input}
               placeholder="Quilometragem"
               value={newVehicle.mileage}
-              onChangeText={number => setNewVehicle({...newVehicle, mileage: number})}
+              onChangeText={text => setNewVehicle({...newVehicle, mileage: number})}
             />
             <TextInput
               style={styles.input}
               placeholder="Preço"
               value={newVehicle.price}
-              onChangeText={number => setNewVehicle({...newVehicle, price: number})}
+              onChangeText={text => setNewVehicle({...newVehicle, price: number})}
             />
             <TouchableOpacity
               style={styles.addButton}
@@ -179,7 +179,6 @@ const styles = StyleSheet.create({
     padding: 10,
     borderRadius: 15,
     marginBottom: 20,
-    marginTop: 3,
   },
   addButtonText: {
     color: 'white',
@@ -196,13 +195,11 @@ const styles = StyleSheet.create({
     marginBottom: 20,
     borderRadius: 15,
     shadowColor: '#000',
-    shadowOffset: { width: 100, height: 20 },
+    shadowOffset: { width: 50, height: 20 },
     shadowOpacity: 0.1,
     shadowRadius: 4,
     elevation: 2,
-    marginTop: 40,
-    marginRight: 25,
-    marginLeft: 25,
+    
   },
   vehicleText: {
     fontSize: 16,

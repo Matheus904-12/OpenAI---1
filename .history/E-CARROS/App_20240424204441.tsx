@@ -179,7 +179,6 @@ const styles = StyleSheet.create({
     padding: 10,
     borderRadius: 15,
     marginBottom: 20,
-    marginTop: 3,
   },
   addButtonText: {
     color: 'white',
@@ -196,13 +195,11 @@ const styles = StyleSheet.create({
     marginBottom: 20,
     borderRadius: 15,
     shadowColor: '#000',
-    shadowOffset: { width: 100, height: 20 },
-    shadowOpacity: 0.1,
+    shadowOffset: { width: 50, height: 20 },
+    shadowOpacity: 0.5,
     shadowRadius: 4,
     elevation: 2,
-    marginTop: 40,
-    marginRight: 25,
-    marginLeft: 25,
+    
   },
   vehicleText: {
     fontSize: 16,
